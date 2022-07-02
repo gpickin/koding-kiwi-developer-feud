@@ -16,7 +16,7 @@ component {
 
 		route( "/questions" )
 			.withHandler( "Questions" )
-			.toAction( { GET: "index" } );
+			.toAction( { GET: "index", POST: "create" } );
 
 
 		route( "/:handler/:action" ).end();

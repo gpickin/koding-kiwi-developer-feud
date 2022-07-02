@@ -59,7 +59,7 @@ component {
 	// Model Namespace
 	this.modelNamespace     = "v1";
 	// CF Mapping
-	this.cfmapping          = "v1";
+	this.cfmapping          = "api-v1";
 	// Auto-map models
 	this.autoMapModels      = true;
 	// Module Dependencies

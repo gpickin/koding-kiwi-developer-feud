@@ -187,7 +187,7 @@
 						"description" : "The main production server"
 					},
 					{
-						"url"         : "http://127.0.0.1:60299",
+						"url"         : "http://127.0.0.1:61938",
 						"description" : "The dev server"
 					}
 				],

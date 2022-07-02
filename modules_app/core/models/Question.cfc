@@ -1,6 +1,6 @@
 component extends="quick.models.BaseEntity" table="questions" accessors="true" {
 
-    property name="questionID" column="questionID";
+    property name="questionID" column="questionID" setter="false";
     property name="question";
 
     variables._key = "questionID";

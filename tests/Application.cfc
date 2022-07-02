@@ -16,6 +16,8 @@ component{
 	// Map back to its root
 	rootPath = REReplaceNoCase( this.mappings[ "/tests" ], "tests(\\|/)", "" );
 	this.mappings["/root"]   = rootPath;
+	this.mappings["/api"]   = rootPath & "/modules_app/api";
+	this.mappings["/api-v1"]   = rootPath & "/modules_app/api/modules_app/v1";
 
 	public void function onRequestEnd() {
 		if( !isNull( application.cbController ) ){
