@@ -18,7 +18,11 @@ component {
 			.withHandler( "Questions" )
 			.toAction( { GET: "index", POST: "create" } );
 
+		route( "/questions/:questionID" )
+			.withHandler( "Questions" )
+			.toAction( { GET: "show", PUT: "update", DELETE: "delete" } );
 
+			
 		route( "/:handler/:action" ).end();
 	}
 

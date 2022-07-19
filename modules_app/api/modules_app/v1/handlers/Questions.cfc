@@ -24,11 +24,30 @@ component extends=api.handlers.BaseHandler {
      * @response-default api-v1/_apidocs/questions/index/responses.json##200
      * 
      */
-    function index( event, rc, prc ) secured{
+    function index( event, rc, prc ) {
         param rc.page = "1";
         param rc.maxrows = "25";
         param rc.includeAnswers = false;
 
+        prc.constraints = {
+            "page": {
+                required: true,
+                type: "numeric",
+                min: "1",
+                max: 1000
+            },
+            "maxrows": {
+                required: true,
+                type: "numeric",
+                min: "1",
+                max: 999999
+            },
+            "includeAnswers": {
+                required: true,
+                type: "boolean"
+            }
+        }
+        prc.results = validateOrFail( target=rc, constraints=prc.constraints );
         prc.questions = questionService
             .retrieveQuery()
             .paginate( rc.page, rc.maxrows );
@@ -62,7 +81,23 @@ component extends=api.handlers.BaseHandler {
      * @response-403 /resources/apidocs/api/v1/_responses/responses.403.json##403
      */
     function create( event, rc, prc ) {
-        prc.oQuestion = questionService.create( { "question": rc.question } );
+        prc.results = validateOrFail( 
+            // target=prc.oQuestion
+            target=rc,
+            constraints= { 
+                "question": {
+                    required: true,
+                    size: "1..255"
+                } 
+            }
+        );
+        
+        prc.oQuestion = questionService
+            .fill( prc.results )
+            .validateOrFail( locale=request.locale )
+            .save();
+        
+        // prc.oQuestion = questionService.create( { "question": rc.question } );
         prc.response
             .addMessage( "Question Created" )
             .setData( prc.oQuestion.getMemento() );
